@@ -46,21 +46,6 @@ dots.enter().append("circle")
                     .style("fill", "red")
 
 
-//画起点和终点
-svg.append("circle")
-            .attr("cx", 0)
-            .attr("cy", height-spacing)
-            .attr("r",7)
-            .style("fill","black")
-            .attr("id", "startPoint")
-
-svg.append("circle")
-            .attr("cx", width-spacing)
-            .attr("cy", 0)
-            .attr("r",7)
-            .style("fill","black")
-            .attr("id", "endPoint")
-
 //拖拽动作
 function dragstarted(event, d)  {
     d3.select(this).raise().attr("stroke", "black");
@@ -82,12 +67,31 @@ var drag = d3.drag()
     .on("drag", dragged)
     .on("end", dragended);
 
+
+//画起点和终点
+svg.append("circle")
+            .attr("cx", 0)
+            .attr("cy", height-spacing)
+            .attr("r",7)
+            .style("fill","black")
+            .attr("id", "startPoint")
+            .call(drag);
+
+svg.append("circle")
+            .attr("cx", width-spacing)
+            .attr("cy", 0)
+            .attr("r",7)
+            .style("fill","black")
+            .attr("id", "endPoint")
+            .call(drag);
+
+
 //每一刻的可被拖拽的点
 for (var i = 1; i<num_t-1;i++){
     svg.append("circle")
             // .attr("cx", data[`${i}`][0]*(height/(num_t-1)))
-            .attr("cx", i*(width-spacing)/(num_t-1))
-            .attr("cy", i*(height-spacing)/(num_t-1))
+            .attr("cx", width-spacing-i*(width-spacing)/(num_t-1))
+            .attr("cy", height-spacing-i*(height-spacing)/(num_t-1))
             .attr("r",7)
             .style("fill","white")
             .attr("id", `dot${i}`)
@@ -125,12 +129,12 @@ function makeline(){
 
     // 读取连线的每个点的坐标
     var lineData = [];
-    lineData.push([d3.select("#endPoint").attr("cx"), d3.select("#endPoint").attr("cy")])
+    lineData.push([d3.select("#startPoint").attr("cx"), d3.select("#startPoint").attr("cy")])
     for (var i = 1; i<num_t-1;i++){
         lineData.push([x_location(i), y_location(i)]);
     } 
-    lineData.push([d3.select("#startPoint").attr("cx"), d3.select("#startPoint").attr("cy")])
-    console.log(lineData);
+    lineData.push([d3.select("#endPoint").attr("cx"), d3.select("#endPoint").attr("cy")])
+    // console.log(lineData);
 
     // 画线
     line = d3.line(d => d[0], d => d[1])
