@@ -6,8 +6,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PI Visualization</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript"
+         src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 </head>
 <body>
+    <h1 align="center">路径积分可视化</h1>
+    <div>
+        <h2>1.背景介绍</h2>
+        <hr/>
+        <p style="text-indent:2em;">我们都熟悉量子力学的标准形式，它主要是由薛定谔(Schrödinger)、海森堡(Heisenberg)等人在20世纪20年代提出的，
+            并在此后不久被证明彼此等价。1933年，狄拉克(Dirac)注意到作用量在经典力学中扮演着重要作用，并将其推广到量子力学中，他认为量子力学中的传播子(propagator)
+            对应于 $\exp \left( iS/\hbar \right)$ ，其中S是沿经典路径计算的经典作用量。1948年，费曼(Feynman)对此进行了进一步的发展，表明传播子可以写成起点和终点之间所有可能路径(而不仅仅是经典路径)的总和，
+            每个路径具有 $\exp \left( iS/\hbar \right)$ 的贡献。
+        </p>
+        <p style="text-indent:2em;">在单粒子量子力学中，路径积分并没有带来超出量子力学标准形式以外的新结果，甚至计算更加繁琐，但它在处理一些更复杂的问题时(例如场论)，则更加便捷。
+            同时，路径积分提供了一种非常清晰的方式来理解量子力学的经典极限。
+        </p>
+        <p style="text-indent:2em;">
+            在本文中，我们将以路径积分为基础，尝试以图形化的方式帮助您更直观地理解量子力学的经典极限。
+        </p>
+    </div>
+    <div>
+        <h2>2.传播子及路径积分</h2>
+        <hr/> 
+        <p style="text-indent:2em;">在一维空间中运动的粒子，其哈密顿量(Hamiltonian)的形式为
+            $$
+            H=\dfrac{p^{2}}{2m}+V\left(q\right)
+            $$
+        </p>
+        <p style="text-indent:2em;">若粒子在 $t=0$ 时刻处于位置 $q$ ，那么它在 $t=T$ 时刻处于位置 $q'$ 的概率幅是
+            $$
+            A= \langle q'| \psi \left( t\right) \rangle \equiv K\left( q',T; q,0\right) = \langle q'|e^{-iHT/ \hbar }|q \rangle
+            $$
+            这被称为从初始时空点 $ \left(q,0 \right)$ 到终点 $ \left( q',T \right)$ 的传播子。当哈密顿量不含时间时，显然有 $ K \left(q',T+t;q,t \right)=K \left(q',T;q,0 \right) $ ，即传播子与初始时间无关。
+        </p>
+        <p style="text-indent:2em;">接下来，将上述概率幅的时间演化分为两个更小的时间演化 $ e^{-iHT/ \hbar}=e^{-iH \left( T-t_1 \right)/ \hbar} e^{-iHt_1 / \hbar}$
+            $$
+            \begin{aligned}
+            A &= \langle q'| e^{-iH \left( T-t_1 \right)/ \hbar} e^{-iHt_1 / \hbar} |q \rangle \\
+            &=\langle q^{\prime}|e^{-i H\left(T-t_{1}\right) / \hbar} \underbrace{\int d q_{1}\left|q_{1}\right\rangle\left\langle q_{1}\right|}_{=1} e^{-i H t_{1} / \hbar}| q \rangle \\
+            &=\int d q_{1} K\left(q^{\prime}, T ; q_{1}, t_{1}\right) K\left(q_{1}, t_{1} ; q, 0\right)
+            \end{aligned}
+            $$
+            这正是概率幅组合规则：如果一个过程可以以多种方式发生，那么此过程的概率幅由每种方式的概率幅组合得到。一个粒子在从 $q$ 传播到 $q'$ 的过程中，一定会在中间的一时刻 $t_1$ 处于某一位置，将其标记为 $q_1$ ，
+            我们计算通过 $q_1$ 的传播子(两个传播子的乘积)，并对所有可能的 $q_1$ 进行积分。(可类比于杨氏双缝实验)
+        </p>
+        <p style="text-indent:2em;">重复这一过程，将时间间隔 $T$ 划分为足够多的 $N$ 个子区间，每个区间长 $\delta =T/N$ ，则传播子可以写为
+            $$
+            A =\langle q'| \left(e^{-iH \delta / \hbar} \right)^{N}|q \rangle =\langle q'| \underbrace{e^{-iH \delta / \hbar} e^{-iH \delta / \hbar}...e^{-iH \delta / \hbar}}_{N \ times} |q \rangle
+            $$
+            同样，在每个指数之间插入一个位置完备基后可以得到
+            $$
+            A = \int dq_1...dq_{N-1} K_{q_{N},q_{N-1}} K_{q_{N-1},q_{N-2}}...K_{q_{2},q_{1}}K_{q_{1},q_{0}}
+            $$
+            其中 $q_0=q$ ， $q_N=q'$ 。如下图所示，对所有可能得 $q_1,q_1,...,q_{N-1}$ 积分。
+            <br/>
+            <img src="N Integrals.png">
+        </p>
+    </div>
     <div id="PI_vis"></div>
     <button onclick="calculate()">Click me</button>
     <script src="./free.js"> </script>
