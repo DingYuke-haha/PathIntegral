@@ -9,7 +9,7 @@ for (var i = 0; i < num_x; i++)
         data.push([i,j]);
     }
 } 
-console.log(data["11"]);
+// console.log(data["11"]);
 
 //创建画布和xy轴
 var svg = d3.select("#PI_vis").append("svg")
@@ -52,12 +52,14 @@ svg.append("circle")
             .attr("cy", height-spacing)
             .attr("r",7)
             .style("fill","black")
+            .attr("id", "startPoint")
 
 svg.append("circle")
             .attr("cx", width-spacing)
             .attr("cy", 0)
             .attr("r",7)
             .style("fill","black")
+            .attr("id", "endPoint")
 
 //拖拽动作
 function dragstarted(event, d)  {
@@ -66,6 +68,7 @@ function dragstarted(event, d)  {
 
 function dragged(event, d) {
     d3.select(this).attr("cx", event.x)
+    makeline();
     // .attr("cy", d.y = event.y);
 }
 
@@ -91,15 +94,73 @@ for (var i = 1; i<num_t-1;i++){
             .call(drag);
 }
 
+function x_location(i){
+    var x_locate = d3.select(`#dot${i}`).attr("cx");
+    return x_locate;
+}
+
+function y_location(i){
+    var y_locate = d3.select(`#dot${i}`).attr("cy");
+    return y_locate;
+}
 
 //点击保存所有点的位置，并计算出PI
 function calculate(){
     xs = []
     ts = []
     for (var i = 1; i<num_t-1;i++){
-        xs.push(d3.select(`#dot${i}`).attr("cx"));
-        ts.push(d3.select(`#dot${i}`).attr("cy"));
+        xs.push(x_location(i));
+        ts.push(y_location(i));
     }
     console.log(xs,ts);
+    return xs, ts
 }
 
+// 连线
+
+function makeline(){
+    // 清除之前的line
+    var line = d3.select("path");
+    line.remove();
+
+    // 读取连线的每个点的坐标
+    var lineData = [];
+    lineData.push([d3.select("#endPoint").attr("cx"), d3.select("#endPoint").attr("cy")])
+    for (var i = 1; i<num_t-1;i++){
+        lineData.push([x_location(i), y_location(i)]);
+    } 
+    lineData.push([d3.select("#startPoint").attr("cx"), d3.select("#startPoint").attr("cy")])
+    console.log(lineData);
+
+    // 画线
+    line = d3.line(d => d[0], d => d[1])
+    svg.append("path")
+    .data(lineData)
+    .attr("d", line(lineData))
+    .attr("stroke", "black")
+    .attr("fill", "none")
+}
+
+// svg.append("path")
+//     .attr("d", d3.line()([[1,100],[100,1],[200,200]]))
+//     .attr("stroke", "black")
+//     .attr("fill", "none")
+
+// console.log(x_location(2))
+
+makeline();
+
+
+
+// var dots = svg.append("g")
+//                 .selectAll("dot").data(data)
+
+// dots.enter().append("circle")
+//                     .attr("cx", function(d){
+//                         return xScale(d[0]);
+//                     })
+//                     .attr("cy", function(d){
+//                         return yScale(d[1]);
+//                     })
+//                     .attr("r", 5)
+//                     .style("fill", "red")
