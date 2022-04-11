@@ -141,26 +141,7 @@ function makeline(){
     .attr("fill", "none")
 }
 
-// svg.append("path")
-//     .attr("d", d3.line()([[1,100],[100,1],[200,200]]))
-//     .attr("stroke", "black")
-//     .attr("fill", "none")
-
-// console.log(x_location(2))
 
 makeline();
 
 
-
-// var dots = svg.append("g")
-//                 .selectAll("dot").data(data)
-
-// dots.enter().append("circle")
-//                     .attr("cx", function(d){
-//                         return xScale(d[0]);
-//                     })
-//                     .attr("cy", function(d){
-//                         return yScale(d[1]);
-//                     })
-//                     .attr("r", 5)
-//                     .style("fill", "red")
