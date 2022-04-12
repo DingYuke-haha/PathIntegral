@@ -6,10 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PI Visualization</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
+    <link rel="stylesheet" href="./index.css">
 </head>
 <body>
+    <div class="words">
+        <div>
+           <p>我是多行文字我是多行文字我是多行文字我是多行文字</p>
+          <p>我是多行文字我是多行文字我是多行文字我是多行文字</p>
+        </div>
+    </div>
     <div id="PI_vis"></div>
-    <button onclick="calculate()">Click me</button>
+    <button onclick="calculate()">Draw</button>
+    <button onclick="clean()">Clean</button>
+    <button onclick="reset()">Reset</button>
+    <button onclick="demo()">Demo</button>
+    <div id="Vector_vis"></div>
     <script src="./free.js"> </script>
 </body>
 </html>

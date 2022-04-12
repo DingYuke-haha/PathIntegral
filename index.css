@@ -1,0 +1,27 @@
+.words{
+    /*flex 布局*/
+    display: flex;
+    /*实现垂直居中*/
+    align-items: center;
+    /*实现水平居中*/
+    justify-content: center;
+    
+    text-align: justify;
+    width:200px;
+    height:200px;
+    /* background: #000; */
+    margin:0 auto;
+    color:#000;
+}
+
+
+#PI_vis {
+    margin: 60px;
+    float: right;
+}
+
+#Vector_vis{
+    margin: 60px;
+    float: left;
+    top : 200px;
+}
