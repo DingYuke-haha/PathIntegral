@@ -279,6 +279,7 @@ function reset(){
     makeline();
 }
 
+
 //尝试遍历x和y，画出向量图
 function demo(){
     d3.select("#startPoint").attr("cx", 0).attr("cy", PIheight-spacing);
@@ -298,9 +299,9 @@ function demo(){
         }
     }
     for (var i = 1; i<num_t-1;i++){
-        for (var j = 1; j<i + 1;j++){
-            x = x_location(num_x-j-1)- xinterval;
-            d3.select(`#dot${num_x-j-1}`).attr("cx", x);
+        for (var j = i ; j<num_t -1;j++){
+            x = x_location(j)- xinterval;
+            d3.select(`#dot${j}`).attr("cx", x);
             makeline();
             calculate();
         }
