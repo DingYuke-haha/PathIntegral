@@ -1,7 +1,7 @@
-var PIwidth = 800, PIheight = 600, spacing = 120;
-var Vecwidth = 300, Vecheight = 300, Vecspacing = 60;
+var PIwidth = 700, PIheight = 700, spacing = 120;
+var Vecwidth = 400, Vecheight = 350, Vecspacing = 60;
 // 有多少种x的取值，有多少种t的取值
-var num_x = 10, num_t = 10;
+var num_x = 20, num_t = 20;
 var data = [];
 var xinterval=(PIwidth-spacing)/(num_x-1);//x间隔
 for (var i = 0; i < num_x; i++)
@@ -16,14 +16,12 @@ for (var i = 0; i < num_x; i++)
 //创建PI画布和xy轴
 var svg = d3.select("#PI_vis").append("svg")
             .attr("width", PIwidth).attr("height", PIheight)
-            .style("background", "pink")
             .append("g")
             .attr("transform", "translate("+spacing/2 + "," +spacing/2 + ")")
 
 // 创建向量画布
 var Vecsvg = d3.select("#Vector_vis").append("svg")
             .attr("width", Vecwidth).attr("height", Vecheight)
-            .style("background", "pink")
             .append("g")
             .attr("transform", "translate("+Vecspacing/2 + "," +Vecspacing/2 + ")")
             .attr("viewBox", [0, 0, Vecwidth, Vecheight]);
@@ -55,13 +53,13 @@ dots.enter().append("circle")
                     .attr("cy", function(d){
                         return yScale(d[1]);
                     })
-                    .attr("r", 5)
-                    .style("fill", "red")
+                    .attr("r", 7)
+                    .style("fill", "white")
 
 
 //拖拽动作
 function dragstarted(event, d)  {
-    d3.select(this).attr("stroke", "black");
+    d3.select(this).attr("stroke", "white").attr("stroke-width",3);
 }
 
 function dragged(event, d) {
@@ -85,7 +83,7 @@ var drag = d3.drag()
 svg.append("circle")
             .attr("cx", 0)
             .attr("cy", PIheight-spacing)
-            .attr("r",7)
+            .attr("r",10)
             .style("fill","black")
             .attr("id", "startPoint")
             .call(drag);
@@ -93,7 +91,7 @@ svg.append("circle")
 svg.append("circle")
             .attr("cx", PIwidth-spacing)
             .attr("cy", 0)
-            .attr("r",7)
+            .attr("r",10)
             .style("fill","black")
             .attr("id", "endPoint")
             .call(drag);
@@ -107,7 +105,7 @@ for (var i = 1; i<num_t-1;i++){
             .attr("cy", PIheight-spacing-i*(PIheight-spacing)/(num_t-1))
             .attr("r",10)
             .attr("z-index", 2)
-            .style("fill","white")
+            .style("fill","#ff7b00")
             .attr("id", `dot${i}`)
             .call(drag);
 }
@@ -123,6 +121,28 @@ function y_location(i){
 }
 var vector = [];
 vector.push([0,0]);
+
+
+//计算复数乘方的函数
+function complex(n){
+    if(n%8==0)
+    return [1,0];
+    if(n%8==1)
+    return [1/2**0.5, -1/2**0.5];
+    if(n%8==2)
+    return [0,-1]
+    if(n%8==3)
+    return [-1/2**0.5, -1/2**0.5];
+    if(n%8==4)
+    return [-1,0];
+    if(n%8==5)
+    return [-1/2**0.5, 1/2**0.5];
+    if(n%8==6)
+    return [0,1];
+    if(n%8==7)
+    return [1/2**0.5, 1/2**0.5];
+}
+
 //点击保存所有点的位置，并计算出PI
 function calculate(){
     xs = []
@@ -139,15 +159,14 @@ function calculate(){
     // xad.push(Math.round(d3.select("#endPoint").attr("cx")/xinterval));
     xad.push(d3.select("#endPoint").attr("cx")/xinterval);
     // console.log(xad);
-    var a=[0.00409553 ,-0.00409553]; //系数部分
-    var s=(xad[0])**2+(9-xad[num_t-3])**2; //指数部分
-    for(var i=0;i<num_t-3;i++){
-        s+=(xad[i+1]-xad[i])**2;
+    var a=complex(num_t-1); //系数部分
+    var s=0; //指数部分
+    var adjust=(num_x-1)**2/(num_t-1)/1.5;
+    for(var i=0;i<num_t-1;i++){
+        s+=((xad[i+1]-xad[i]))**2/adjust;
     }
-    PI=[100* a[0] * Math.cos(s) - a[1] * Math.sin(s),100 * a[0] * Math.sin(s)+a[1] * Math.cos(s)];
+    PI=[100* a[0] * Math.cos(s) -100* a[1] * Math.sin(s),100 * a[0] * Math.sin(s)+ 100* a[1] * Math.cos(s)];
     vector.push([PI[0]+vector[vector.length-1][0],PI[1]+vector[vector.length-1][1]]);
-    // console.log(xs,ts,xad,PI);
-    console.log(vector);
 
 
     // 在Vecsvg上画出向量
@@ -202,7 +221,7 @@ function makeline(){
     svg.append("path")
     .data(lineData)
     .attr("d", line(lineData))
-    .attr("stroke", "black")
+    .attr("stroke", "#ff7b00")
     .attr("fill", "none")
     .attr("id", "PIpath")
     .attr("stroke-width",5)
@@ -260,14 +279,6 @@ function reset(){
     makeline();
 }
 
-// 休眠函数
-// function sleep(delay) {
-//     var start = (new Date()).getTime();
-//     while((new Date()).getTime() - start < delay) {
-//         continue;
-//     }
-// }
-
 //尝试遍历x和y，画出向量图
 function demo(){
     d3.select("#startPoint").attr("cx", 0).attr("cy", PIheight-spacing);
@@ -282,6 +293,14 @@ function demo(){
         for (var j = 1; j<i + 1;j++){
             x = x_location(j)- xinterval;
             d3.select(`#dot${j}`).attr("cx", x);
+            makeline();
+            calculate();
+        }
+    }
+    for (var i = 1; i<num_t-1;i++){
+        for (var j = 1; j<i + 1;j++){
+            x = x_location(num_x-j-1)- xinterval;
+            d3.select(`#dot${num_x-j-1}`).attr("cx", x);
             makeline();
             calculate();
         }

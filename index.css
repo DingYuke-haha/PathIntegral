@@ -1,27 +1,85 @@
-.words{
-    /*flex 布局*/
-    display: flex;
-    /*实现垂直居中*/
-    align-items: center;
-    /*实现水平居中*/
-    justify-content: center;
-    
-    text-align: justify;
-    width:200px;
-    height:200px;
-    /* background: #000; */
-    margin:0 auto;
-    color:#000;
+.body{
+    background: cornsilk;
 }
 
+.sections{
+    margin:0 auto;
+    color:#000;
+    padding: 10px 100px;
+    margin: 30px 50px;
+    font-size: 150%;
+    font-weight: 100;
+    color:dimgrey;
+    background-color:#ff7b0031;
+    border-radius: 30px;
+    box-shadow: 0 8px 16px 0 rgba(226, 114, 69, 0.144), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.title{
+    font-size: 150%;
+    text-align:center;
+}
+
+h1, h2{
+    color: #ff7b00;
+    border-radius: 5px;
+}
+
+.imgs{
+    display: flex; /*主要是这个属性*/
+    vertical-align: middle;
+    text-align: center;
+    justify-content: center;
+}
+
+.left{
+    /* width: 30vw; */
+    /* height: 100vh; */
+    position: relative;
+    float: left;
+}
+
+.right{
+    /* width: 60vw; */
+    /* height: 100vh; */
+    position: relative;
+    float: right;
+}
+.button{
+    margin: 50px 20px -20px 100px;
+    background-color: #ff7b0031; 
+    /* float: right; */
+    border: none;
+    border-radius: 20px;
+    color: black;
+    padding: 15px 60px;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    justify-content: right;
+    font-size: 16px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.button:hover {
+    background-color: #ff7b00; /* Green */
+    color: white;
+}
 
 #PI_vis {
-    margin: 60px;
-    float: right;
+    margin: 50px 100px 50px 10px;
+    background-color: #ff7b0031;
+    /* float: right; */
+    border-radius: 30px;
+    box-shadow: 0 8px 16px 0 rgba(226, 114, 69, 0.144), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
 #Vector_vis{
-    margin: 60px;
-    float: left;
+    margin: 50px 20px 30px 100px;
+    border-radius: 30px;
+    background-color: #ff7b0031;
+    box-shadow: 0 8px 16px 0 rgba(226, 114, 69, 0.144), 0 6px 20px 0 rgba(0,0,0,0.19);
+    /* float: left; */
     top : 200px;
 }
