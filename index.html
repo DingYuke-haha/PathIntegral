@@ -20,76 +20,116 @@
     <div class="sections">
         <h2>1.背景介绍</h2>
         <p style="text-indent:2em;">我们都熟悉量子力学的标准形式，它主要是由薛定谔(Schrödinger)、海森堡(Heisenberg)等人在20世纪20年代提出的，
-            并在此后不久被证明彼此等价。1933年，狄拉克(Dirac)注意到作用量在经典力学中扮演着重要作用，并将其推广到量子力学中，他认为量子力学中的传播子(propagator)
-            对应于 $\exp \left( iS/\hbar \right)$ ，其中S是沿经典路径计算的经典作用量。1948年，费曼(Feynman)对此进行了进一步的发展，表明传播子可以写成起点和终点之间所有可能路径(而不仅仅是经典路径)的总和，
+            并在此后不久被证明彼此等价。1933年，狄拉克(Dirac)注意到作用量(action)在经典力学中扮演着重要作用，并将其推广到量子力学中，他认为量子力学中的传播子(propagator)
+            对应于 $\exp \left( iS/\hbar \right)$ ，其中S是沿经典路径计算的经典作用量。1948年，费曼(Feynman)对此进行了进一步的发展，他将传播子写成起点和终点之间所有可能路径(而不仅仅是经典路径)的总和，
             每个路径具有 $\exp \left( iS/\hbar \right)$ 的贡献。
         </p>
-        <p style="text-indent:2em;">在单粒子量子力学中，路径积分并没有带来超出量子力学标准形式以外的新结果，甚至计算更加繁琐，但它在处理一些更复杂的问题时(例如场论)，则更加便捷。
+        <p style="text-indent:2em;">在单粒子量子力学中，路径积分并没有带来超出标准形式以外的新结果，甚至计算更加繁琐，但它在处理一些更复杂的问题时(例如场论)，则更加便捷。
             同时，路径积分提供了一种非常清晰的方式来理解量子力学的经典极限。
-        </p>
-        <p style="text-indent:2em;">
-            在本文中，我们将以路径积分为基础，尝试以图形化的方式帮助您更直观地理解量子力学的经典极限。
         </p>
     </div>
     <div class="sections">
         <h2>2.传播子及路径积分</h2>
-        <p style="text-indent:2em;">在一维空间中运动的粒子，其哈密顿量(Hamiltonian)的形式为
+        <p style="text-indent:2em;">在一维空间中运动的粒子，其不含时哈密顿量(Hamiltonian)的形式为
             $$
-            H=\dfrac{p^{2}}{2m}+V\left(q\right)
+            H=\dfrac{p^{2}}{2m}+V\left(q\right).
             $$
         </p>
         <p style="text-indent:2em;">若粒子在 $t=0$ 时刻处于位置 $q$ ，那么它在 $t=T$ 时刻处于位置 $q'$ 的概率幅是
             $$
-            A= \langle q'| \psi \left( t\right) \rangle \equiv K\left( q',T; q,0\right) = \langle q'|e^{-iHT/ \hbar }|q \rangle
+            A= \langle q'| \psi \left( t\right) \rangle \equiv K\left( q',T; q,0\right) = \langle q'|e^{-iHT/ \hbar }|q \rangle,
             $$
             这被称为从初始时空点 $ \left(q,0 \right)$ 到终点 $ \left( q',T \right)$ 的传播子。当哈密顿量不含时间时，显然有 $ K \left(q',T+t;q,t \right)=K \left(q',T;q,0 \right) $ ，即传播子与初始时间无关。
         </p>
-        <p style="text-indent:2em;">接下来，将上述概率幅的时间演化分为两个更小的时间演化 $ e^{-iHT/ \hbar}=e^{-iH \left( T-t_1 \right)/ \hbar} e^{-iHt_1 / \hbar}$
+        <p style="text-indent:2em;">接下来，将上述概率幅的时间演化过程分解为两个更小的演化过程 $ e^{-iHT/ \hbar}=e^{-iH \left( T-t_1 \right)/ \hbar} e^{-iHt_1 / \hbar}$，则
             $$
             \begin{aligned}
             A &= \langle q'| e^{-iH \left( T-t_1 \right)/ \hbar} e^{-iHt_1 / \hbar} |q \rangle \\
             &=\langle q^{\prime}|e^{-i H\left(T-t_{1}\right) / \hbar} \underbrace{\int d q_{1}\left|q_{1}\right\rangle\left\langle q_{1}\right|}_{=1} e^{-i H t_{1} / \hbar}| q \rangle \\
-            &=\int d q_{1} K\left(q^{\prime}, T ; q_{1}, t_{1}\right) K\left(q_{1}, t_{1} ; q, 0\right)
+            &=\int d q_{1} K\left(q^{\prime}, T ; q_{1}, t_{1}\right) K\left(q_{1}, t_{1} ; q, 0\right),
             \end{aligned}
             $$
-            这正是概率幅组合规则：如果一个过程可以以多种方式发生，那么此过程的概率幅由每种方式的概率幅组合得到。一个粒子在从 $q$ 传播到 $q'$ 的过程中，一定会在中间的一时刻 $t_1$ 处于某一位置，将其标记为 $q_1$ ，
-            我们计算通过 $q_1$ 的传播子(两个传播子的乘积)，并对所有可能的 $q_1$ 进行积分。(可类比于杨氏双缝实验)
+            这正是概率幅组合规则：如果一个过程可以以多种方式发生，那么此过程的概率幅由每种方式的概率幅组合得到。一个粒子在从 $q$ 传播到 $q'$ 的过程中，一定会在中间的某一时刻 $t_1$ 处于某一位置，将其标记为 $q_1$ ，
+            我们计算通过 $q_1$ 的传播子(两个传播子的乘积)，并对所有可能的 $q_1$ 进行积分，便得到全过程的概率幅。(可类比于杨氏双缝实验)
         </p>
         <p style="text-indent:2em;">重复这一过程，将时间间隔 $T$ 划分为足够多的 $N$ 个子区间，每个区间长 $\delta =T/N$ ，则传播子可以写为
             $$
-            A =\langle q'| \left(e^{-iH \delta / \hbar} \right)^{N}|q \rangle =\langle q'| \underbrace{e^{-iH \delta / \hbar} e^{-iH \delta / \hbar}...e^{-iH \delta / \hbar}}_{N \ times} |q \rangle
+            A =\langle q'| \left(e^{-iH \delta / \hbar} \right)^{N}|q \rangle =\langle q'| \underbrace{e^{-iH \delta / \hbar} e^{-iH \delta / \hbar}...e^{-iH \delta / \hbar}}_{N \ times} |q \rangle.
             $$
             同样，在每个指数之间插入一个位置完备基后可以得到
             $$
+            \begin{aligned}
             A = \int dq_1...dq_{N-1} K_{q_{N},q_{N-1}} K_{q_{N-1},q_{N-2}}...K_{q_{2},q_{1}}K_{q_{1},q_{0}}
+            &= \sum_{paths} A_{path}
+            \end{aligned}
             $$
-            其中 $q_0=q$ ， $q_N=q'$ 。如下图所示，对所有可能的 $q_1,q_1,...,q_{N-1}$ 积分。
+            其中 $q_0=q$ ， $q_N=q'$ ， 
+            $$
+            \sum_{paths}=\int dq_1...dq_{N-1} , \quad A_{path}=K_{q_{N},q_{N-1}} K_{q_{N-1},q_{N-2}}...K_{q_{2},q_{1}}K_{q_{1},q_{0}},
+            $$ 
+            如下图所示，对所有可能的 $q_1,q_1,...,q_{N-1}$ 积分。
             <br/>
             <div class="imgs"><img src="N Integrals.png"></div>
             <br/>
-            计算上式可得从 $ \left(q,0 \right)$ 到 $ \left( q',T \right)$ 的传播子为
+            将上式对 $\delta$ 展开，并保留到一阶项，可得
             $$
-            K=\int \prod_{j=1}^{N-1} d q_{j} \prod_{j=0}^{N-1} \frac{d p_{j}}{2 \pi} \exp \left(i \delta / \hbar \sum_{j=0}^{N-1}\left(p_{j} \dot{q}_{j}-H\left(p_{j}, \bar{q}_{j}\right)\right) \right)
+            K_{q_{j+1},q_{j}} \approx \int \frac{dp_j}{2 \pi \hbar} \exp \left(- \frac{i \delta}{\hbar}  H(p_j, \bar{q}_j) \right) \exp \left( \frac{i}{\hbar} p_j(q_{j+1}-q_j) \right),
+            $$
+            引入 $q_j$ 的差分：$ \dot{q}_j=(q_{j+1}-q_j)/ \delta$ ，可得
+            $$
+            A_{path} \approx \int \prod_{j=0}^{N-1} \frac{d p_{j}}{2 \pi} \exp \left(i \delta / \hbar \sum_{j=0}^{N-1}\left(p_{j} \dot{q}_{j}-H\left(p_{j}, \bar{q}_{j}\right)\right) \right),
+            $$
+            进而从 $ \left(q,0 \right)$ 到 $ \left( q',T \right)$ 的传播子近似为
+            $$
+            K \approx \int \prod_{j=1}^{N-1} d q_{j} \prod_{j=0}^{N-1} \frac{d p_{j}}{2 \pi} \exp \left(i \delta / \hbar \sum_{j=0}^{N-1}\left(p_{j} \dot{q}_{j}-H\left(p_{j}, \bar{q}_{j}\right)\right) \right).
             $$
         </p>
-        <p style="text-indent:2em;">当 $N\rightarrow \infty$ 时，这近似于对所有函数 $p(t)$、$q(t)$ 的积分，我们可以将其写为泛函积分的形式
+        <p style="text-indent:2em;">当 $N\rightarrow \infty$ 时，这近似于对所有函数 $p(t)$、$q(t)$ 的积分，同时得到精确的传播子结果。我们可以将其写为泛函积分的形式
             $$
-            K \equiv \int \mathcal{D}p(t) \mathcal{D} q(t) \exp \left( i / \hbar \int^{T}_{0} dt \left( p \dot{q} -H \left(p,q \right) \right) \right)
+            K \equiv \int \mathcal{D}p(t) \mathcal{D} q(t) \exp \left( i / \hbar \int^{T}_{0} dt \left( p \dot{q} -H \left(p,q \right) \right) \right),
             $$
-            这就是相空间的路径积分表达式。
+            这就是相空间(phase_space)中的路径积分表达式。
+        </p>
+        <p style="text-indent:2em;">对于势函数为 $V(q)$ 形式的哈密顿量，我们可以积掉$p_j$
+            $$
+            A_{path}=\lim _{N\rightarrow \infty }\left( \dfrac{m}{i2\pi \hbar \delta }\right) ^{N/2} \exp \left( \frac{i \delta}{\hbar} \sum ^{N-1}_{j=0}\left(\frac{1}{2} m \dot{q}^2_j -V(\bar{q}_j)\right)\right),
+            $$
+            再对 $q_j$ 积分，得到组态空间(configuration space)中路径积分的表达式
+            $$
+            K= \int \mathcal{D} q(t) \exp \left( i S [q(t)] \right / \hbar)
+            $$
+            其中， $ S [q(t)]$ 为作用量
+            $$
+            S [q(t)]= \int^T_0 \mathcal{L}( \dot{q},q) dt,
+            $$
+            $\mathcal{L}( \dot{q},q)$ 为拉格朗日量(lagrangian)
+            $$
+            \mathcal{L}( \dot{q},q)=\frac{1}{2} m \dot{q}^2 -V(q).
+            $$
         </p>
     </div>
     <div class="sections">
-        <h2>3.可视化---自由粒子</h2>
+        <h2>3.经典极限：最小作用量原理</h2>
+        <p style="text-indent:2em;">从路径积分在组态空间中的表达式
+            $$
+            K= \int \mathcal{D} q(t) \exp \left( i S [q(t)] \right / \hbar)
+            $$
+            可以看出当粒子从一个位置到另一个位置时，采取了这两个位置之间所有可能的路径。如果比较经典路径(其作用量记为 $S[q_c]$)和其他任意路径(作用量记为 $S[q_w]$)在路径积分中的贡献,我们将震惊地发现，$ \exp(iS[q_c]/ \hbar)$ 和 $ \exp(iS[q_w]/ \hbar)$
+            是具有相同单位模长的复数，这似乎暗示着单独采取的每条路径都同样重要，但拋在空中的小球却具有近似的抛物运动，这是否相互矛盾？
+        </p>
+        <p style="text-indent:2em;">事实上，重要的不是各个路径单独的贡献大小，而是它们之间的干渉。对于经典问题( $S[q] \gg \hbar$ )，即使两条任意选择的路径非常接近，它们之间的作用量相差仍然很大，这就导致它们发生干涉时相位差很大，相互抵消，最终在路径积分中的贡献很小；
+            而在经典路径和其邻近区域内，作用量则十分接近，呈现出增强干涉。也就是说，路径积分中贡献最大的部分来自于使作用量处于极小值附近的路径，这正是推导出经典力学的欧拉-拉格朗日方程的最小作用量原理。
+        </p>
+        <p style="text-indent:2em;">下面一节，我们将免去数学推导，以路径积分为基础，自由粒子为例，尝试以图形化的方式帮助您更直观地理解量子力学的经典极限。
+        </p>
+    </div>
+    <div class="sections">
+        <h2>4.可视化---自由粒子</h2>
         <div>
             <!-- <h3>3.1自由粒子(Free Partical)</h3> -->
-            <p style="text-indent:2em;">对于自由粒子，
+            <p style="text-indent:2em;">对于自由粒子 $ V(q)=0$ ，如下图所示，两点之间某一路径在路径积分中的贡献可以离散地写为
                 $$
-                H=\dfrac{p^{2}}{2m}
-                $$
-                如下图所示，可以写出粒子从 $q_{j}$ 到 $q_{j+1}$ 的传播子
-                $$
-                K_{q_{j+1},q_{j}} =\sqrt{\dfrac{m}{i2\pi \hbar \delta}} \exp\left( \dfrac{i m \left( q_{j+1}-q_{j} \right)^2 }{2 \hbar \delta} \right)
+                A_{path} \approx \left( \dfrac{m}{i2\pi \hbar \delta }\right) ^{N/2} \exp\left( \dfrac{i m}{2 \hbar \delta}  \sum ^{N-1}_{j=0}\left( q_{j+1}-q_{j} \right)^2 \right).
                 $$
             </p>
         </div>
