@@ -160,13 +160,11 @@ function complex(n){
 //点击保存所有点的位置，并计算出PI
 function calculate(){
     xs = []
-    ts = []
     var xad=[]
     // xad.push(Math.round(d3.select("#startPoint").attr("cx")/xinterval));
     xad.push(d3.select("#startPoint").attr("cx")/xinterval);
     for (var i = 1; i<num_t-1;i++){
         xs.push(x_location(i));
-        ts.push(y_location(i));
         // xad.push(Math.round(xs[i-1]/xinterval)); //离它最近的整数点
         xad.push(xs[i-1]/xinterval); //离它最近的整数点
     }
@@ -210,7 +208,7 @@ function calculate(){
         // .attr("marker-start","url(#arrow)")
         .attr("marker-end","url(#arrow)")
     }
-    return xs, ts, PI;
+    return xs, PI;
 }
 
 // 连线

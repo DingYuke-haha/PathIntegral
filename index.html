@@ -132,6 +132,19 @@
                 A_{path} \approx \left( \dfrac{m}{i2\pi \hbar \delta }\right) ^{N/2} \exp\left( \dfrac{i m}{2 \hbar \delta}  \sum ^{N-1}_{j=0}\left( q_{j+1}-q_{j} \right)^2 \right).
                 $$
             </p>
+            <p style="text-indent:2em;">一个一维自由粒子是怎么移动的呢？看右下的交互面板，横轴是粒子的一维坐标，纵轴是粒子的所处时间。处于$t=0$处的黑色圆点是起点，最右上角的黑色圆点是终点，连接两个黑色圆点之间的橙色圆点对应的是每一个时刻粒子所处的位置。移动这些圆点试试看！
+            </p>
+            <p style="text-indent:2em;">
+            如果觉得自己把圆点位置弄得太乱了，可以点击Reset键，圆点会回到初始位置（也就是电子的经典路径）。
+            </p>
+            <p style="text-indent:2em;">粒子从起始点跑到终点的概率是由所有可能路径的贡献求和得到的，这个贡献是一个复数，在左下角的方块中可以体现。方块的横轴即是实轴，纵轴是虚轴。选定粒子的路径后（即摆好了每个原点的位置后），点击Draw键，这条路径对应的贡献就画在了左下角的复平面上。多选择几个路径，点击Draw，感受一下不同路径贡献的不同！想要清空复平面上所有的箭头，可以点击Clean键。</p>
+            
+            <p style="text-indent:2em;">
+            值得注意的是，为了把路径贡献的这些虚数塞到左下角的方块内，使用的方法是让这串箭头顶天立地，撑满整个方块。这意味着同一个路径对应的箭头，虽然代表得是同一个虚数，但也许会在不同的箭头组合中有不同的大小和指向。我们关注得是路径贡献之间的关系，所以这是个小问题啦～</p>
+
+            <p style="text-indent:2em;">A Great Example键是干什么用的呢？是一个great example啦！它把路径先全部往右下角拉，再逐渐让路径往左上角变换，最终得到复平面上的向量图。可以看到，（虽然很丑）向量图中的一串向量里，两端卷了起来，说明远离经典路径的路径贡献疯狂相互抵消，只有靠近经典路径的路径贡献（从起始点匀速奔向终点）会持之以恒地向一个方向累加。这就是路径积分的魅力！量子情况下的电子运动和经典路径形成了奇妙的统一！</p>
+            
+            </p>
         </div>
     </div>
     <div class="left">
@@ -141,7 +154,7 @@
         </div>
         <div>
             <button class="button" onclick="reset()">Reset</button>
-            <button class="button" onclick="demo()">Demo</button>
+            <button class="button" onclick="demo()">A Great Example</button>
         </div>
 
         <div id="Vector_vis"></div>
