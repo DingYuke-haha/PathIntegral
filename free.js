@@ -1,5 +1,6 @@
 var PIwidth = 700, PIheight = 700, spacing = 120;
 var Vecwidth = 400, Vecheight = 350, Vecspacing = 60;
+var xLabel = "空间坐标 x -->", yLabel = "时间 t ↑"
 // 有多少种x的取值，有多少种t的取值
 var num_x = 20, num_t = 20;
 var data = [];
@@ -38,8 +39,21 @@ var xAxis = d3.axisBottom(xScale);
 var yAxis = d3.axisLeft(yScale);
 
 svg.append("g").attr("transform","translate(0,"+ (PIheight-spacing) + ")")
-    .call(xAxis);
-svg.append("g").call(yAxis);
+    .call(xAxis)
+    .call(g => g.append("text")
+          .attr("x", PIwidth - spacing)
+          .attr("y", 27)
+          .attr("fill", "#ff7b00")
+          .attr("text-anchor", "end")
+          .text(xLabel));
+svg.append("g")
+    .call(yAxis)
+    .call(g => g.append("text")
+          .attr("x", -spacing/2.5)
+          .attr("y", 10)
+          .attr("fill", "#ff7b00")
+          .attr("text-anchor", "start")
+          .text(yLabel));
 
 
 //画点格
@@ -283,7 +297,7 @@ function reset(){
 //尝试遍历x和y，画出向量图
 function demo(){
     d3.select("#startPoint").attr("cx", 0).attr("cy", PIheight-spacing);
-    d3.select("endPoint").attr("cx", PIwidth-spacing).attr("cy", 0);
+    d3.select("#endPoint").attr("cx", PIwidth-spacing).attr("cy", 0);
     for (var i = 1; i<num_t-1;i++){
         d3.select(`#dot${i}`)
         .attr("cx", PIwidth-spacing)
