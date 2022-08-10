@@ -1,2 +1,2 @@
-# PathIntegral
-A visualization to demonstrate path integral in physics
+# Path Integral
+A visualization to demonstrate path integral in physics.
